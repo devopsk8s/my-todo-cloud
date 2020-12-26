@@ -1,0 +1,7 @@
+{
+  "name": "my-todo-cloud",
+  "dependencies": {
+    "node-gyp": "^5.1.0",
+    "node-pre-gyp": "^0.13.0"
+  }
+}

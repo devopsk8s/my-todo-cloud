@@ -1,0 +1,54 @@
+version: "3"
+
+services:
+  todo-postgres:
+    image: devopsk8s/todo-postgres:${TAG}
+
+  todo-cache-ingestion:
+    build:
+      dockerfile: ../Dockerfile.nodejs.${DOCKERFILE_SUFFIX}
+    image: devopsk8s/todo-cache-ingestion:${TAG}
+
+  todo-cache-service:
+    build:
+      dockerfile: ../Dockerfile.nodejs.${DOCKERFILE_SUFFIX}
+    image: devopsk8s/todo-cache-service:${TAG}
+
+  todo-search-ingestion:
+    build:
+      dockerfile: ../Dockerfile.nodejs.${DOCKERFILE_SUFFIX}
+    image: devopsk8s/todo-search-ingestion:${TAG}
+    command: sh /home/node/app/start.sh
+
+  todo-search-service:
+    build:
+      dockerfile: ../Dockerfile.nodejs.${DOCKERFILE_SUFFIX}
+    image: devopsk8s/todo-search-service:${TAG}
+    command: sh /home/node/app/start.sh
+
+  todo-storage-ingestion:
+    build:
+      dockerfile: ../Dockerfile.nodejs.${DOCKERFILE_SUFFIX}
+    image: devopsk8s/todo-storage-ingestion:${TAG}
+    command: sh /home/node/app/start.sh
+
+  todo-storage-service:
+    build:
+      dockerfile: ../Dockerfile.nodejs.${DOCKERFILE_SUFFIX}
+    image: devopsk8s/todo-storage-service:${TAG}
+
+  todo-api-gateway:
+    build:
+      dockerfile: ../Dockerfile.nodejs.${DOCKERFILE_SUFFIX}
+    image: devopsk8s/todo-api-gateway:${TAG}
+    command: sh /home/node/app/start.sh
+
+  todo-view:
+    build:
+      dockerfile: Dockerfile.${DOCKERFILE_SUFFIX}
+    image: devopsk8s/todo-view:${TAG}
+    ports:
+      - 4201:8080
+
+  todo-proxy:
+    image: devopsk8s/todo-proxy:${TAG}
